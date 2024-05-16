@@ -1,18 +1,15 @@
-import gettext
-from typing import Any
+import typing as t
 
 import click
-from pulpcore.cli.common.context import PluginRequirement
+from pulp_glue.common.context import PluginRequirement
 from pulpcore.cli.common.generic import PulpCLIContext, pass_pulp_context
-
-_ = gettext.gettext
 
 
 @click.command()
 @click.option("--count", "-c", type=int)
 @click.option("--sleep-secs", "-s", type=float)
 @pass_pulp_context
-def tasking_test(pulp_ctx: PulpCLIContext, **kwargs: Any) -> None:
+def tasking_test(pulp_ctx: PulpCLIContext, **kwargs: t.Any) -> None:
     """
     Trigger a burst of tasks in the tasking_system.
     """
