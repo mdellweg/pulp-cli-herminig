@@ -1,12 +1,23 @@
+
+CLI_PLUGINS=$(notdir $(wildcard pulpcore/cli/*))
+
+info:
+	@echo Pulp CLI
+	@echo plugins: $(CLI_PLUGINS)
+
+build:
+	pyproject-build -n
+
 black:
 	isort .
 	black .
 
 lint:
-	find . -name '*.sh' -print0 | xargs -0 shellcheck -x
-	black --diff --check .
+	find tests .ci -name '*.sh' -print0 | xargs -0 shellcheck -x
 	isort -c --diff .
-	flake8 --config flake8.cfg
+	black --diff --check .
+	flake8
+	.ci/scripts/check_click_for_mypy.py
 	mypy
 	@echo "🙊 Code 🙈 LGTM 🙉 !"
 
@@ -16,5 +27,4 @@ tests/cli.toml:
 
 test: | tests/cli.toml
 	pytest -v tests
-
-.PHONY: black lint
+.PHONY: build info black lint test

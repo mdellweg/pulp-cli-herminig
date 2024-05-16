@@ -1,10 +1,5 @@
-# Test against pulp-cli source checkout to find the pytest-plugin
-git+git://github.com/pulp/pulp-cli.git@develop
-
--e .
-black
-flake8
-isort
-mypy
+# Test requirements
 pygments
 pytest
+pytest-subtests
+python-gnupg
